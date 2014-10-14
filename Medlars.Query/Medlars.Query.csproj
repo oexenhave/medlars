@@ -58,22 +58,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Consumers\Database\UserDatabaseView.cs" />
+    <Compile Include="Consumers\Database\AccountView.cs" />
+    <Compile Include="Consumers\Notifications\AccountSignupNotification.cs" />
+    <Compile Include="Managers\AccountManager.cs" />
     <Compile Include="MedlarsDataConfiguration.cs" />
     <Compile Include="MedlarsDataContext.cs" />
     <Compile Include="MedlarsDbContextFactory.cs" />
     <Compile Include="MedlarsQueryInjection.cs" />
-    <Compile Include="Migrations\201410131458402_20141013User.cs" />
-    <Compile Include="Migrations\201410131458402_20141013User.Designer.cs">
-      <DependentUpon>201410131458402_20141013User.cs</DependentUpon>
+    <Compile Include="Migrations\201410140610135_20141013Account.cs" />
+    <Compile Include="Migrations\201410140610135_20141013Account.Designer.cs">
+      <DependentUpon>201410140610135_20141013Account.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\Account.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Consumers\Memory\" />
-    <Folder Include="Consumers\Notifications\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -86,8 +87,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201410131458402_20141013User.resx">
-      <DependentUpon>201410131458402_20141013User.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201410140610135_20141013Account.resx">
+      <DependentUpon>201410140610135_20141013Account.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

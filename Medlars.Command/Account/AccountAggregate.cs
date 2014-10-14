@@ -2,6 +2,8 @@
 {
     using System;
 
+    using Medlars.Core;
+
     using TastyDomainDriven;
 
     /// <summary>
@@ -18,8 +20,21 @@
             this.GuardCreated();
 
             var secret = Guid.NewGuid().ToString().Replace("-", string.Empty).ToLower();
+            var passwordSalt = Encryption.GeneratePasswordSalt();
+            var temporaryPassword = Encryption.GenerateRandomPassword();
+            var passwordHash = Encryption.GeneratePasswordHash(passwordSalt, temporaryPassword);
+            const string AllowedIps = "127.0.0.1 ::1";
 
-            this.Apply(new SignupExecutedEvent { AggregateId = cmd.Id, Email = cmd.Email, Secret = secret });
+            this.Apply(new SignupExecutedEvent
+                       {
+                           AggregateId = cmd.Id,
+                           Email = cmd.Email,
+                           Secret = secret,
+                           PasswordSalt = passwordSalt,
+                           PasswordHash = passwordHash,
+                           TemporaryPassword = temporaryPassword,
+                           AllowedIps = AllowedIps
+                       });
         }
 
         private void GuardCreated()

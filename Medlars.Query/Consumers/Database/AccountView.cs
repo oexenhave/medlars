@@ -10,20 +10,28 @@ namespace Medlars.Query.Consumers.Database
 
     using TastyDomainDriven;
 
-    public class UserDatabaseView : IConsumes<SignupExecutedEvent>
+    public class AccountView : IConsumes<SignupExecutedEvent>
     {
-        private static readonly ILog Logger = LogManager.GetLogger(typeof(UserDatabaseView));
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(AccountView));
 
         private readonly MedlarsDataContext context;
 
-        public UserDatabaseView(MedlarsDataContext context)
+        public AccountView(MedlarsDataContext context)
         {
             this.context = context;
         }
 
         public void Consume(SignupExecutedEvent e)
         {
-            context.Users.Add(new User { Email = e.Email, Secret = e.Secret, UserId = Guid.Parse(e.AggregateId.ToString()) });
+            context.Accounts.Add(new Account
+                                 {
+                                     Email = e.Email,
+                                     Secret = e.Secret,
+                                     AccountId = Guid.Parse(e.AggregateId.ToString()),
+                                     AllowedIps = e.AllowedIps,
+                                     PasswordHash = e.PasswordHash,
+                                     PasswordSalt = e.PasswordSalt
+                                 });
 
             try
             {

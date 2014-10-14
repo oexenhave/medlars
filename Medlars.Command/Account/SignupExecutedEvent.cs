@@ -21,5 +21,13 @@
         public string Email { get; set; }
 
         public string Secret { get; set; }
+
+        public string PasswordSalt { get; set; }
+
+        public string PasswordHash { get; set; }
+
+        public string TemporaryPassword { get; set; }
+
+        public string AllowedIps { get; set; }
     }
 }

@@ -7,13 +7,13 @@ namespace Medlars.Query.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.2-beta1-30916")]
-    public sealed partial class _20141013User : IMigrationMetadata
+    public sealed partial class _20141013Account : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(_20141013User));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(_20141013Account));
         
         string IMigrationMetadata.Id
         {
-            get { return "201410131458402_20141013User"; }
+            get { return "201410140610135_20141013Account"; }
         }
         
         string IMigrationMetadata.Source
