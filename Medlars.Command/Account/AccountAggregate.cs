@@ -6,6 +6,22 @@
 
     using TastyDomainDriven;
 
+    [Serializable]
+    public struct AccountId : IIdentity
+    {
+        private readonly Guid id;
+
+        public AccountId(Guid id)
+        {
+            this.id = id;
+        }
+
+        public override string ToString()
+        {
+            return this.id.ToString();
+        }
+    }
+
     /// <summary>
     /// Persists to state to database based on your domain logic
     /// </summary>
@@ -34,6 +50,14 @@
                            PasswordHash = passwordHash,
                            TemporaryPassword = temporaryPassword,
                            AllowedIps = AllowedIps
+                       });
+        }
+
+        public void SignIn(SignInCommand cmd)
+        {
+            this.Apply(new SignInExecutedEvent
+                       {
+                           AggregateId = cmd.Id
                        });
         }
 

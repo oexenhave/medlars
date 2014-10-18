@@ -6,6 +6,7 @@
 
     using Medlars.Query.Consumers.Database;
     using Medlars.Query.Consumers.Notifications;
+    using Medlars.Query.Managers;
 
     public class MedlarsQueryInjection
     {
@@ -15,6 +16,8 @@
             builder.RegisterType<AccountView>().AsImplementedInterfaces();
 
             builder.RegisterType<AccountSignupNotification>().AsImplementedInterfaces();
+
+            builder.RegisterType<AccountManager>().AsSelf();
         }
     }
 }

@@ -7,7 +7,9 @@
     /// <summary>
     /// Fetches from storage, saves and forwards to bus.
     /// </summary>
-    public class AccountService : AggregateService<AccountAggregate>, IAcceptCommand<SignupCommand>
+    public class AccountService : AggregateService<AccountAggregate>, 
+        IAcceptCommand<SignupCommand>,
+        IAcceptCommand<SignInCommand>
     {
         public AccountService(IEventStore eventStorage)
             : base(eventStorage)
@@ -25,6 +27,14 @@
             cmd.ValidateString(c => c.Email);
 
             this.Update(cmd.Id, aggregate => aggregate.Signup(cmd));
+        }
+
+        public void When(SignInCommand cmd)
+        {
+            cmd.ValidateId(c => c.Id);
+            cmd.ValidateTimestamp();
+
+            this.Update(cmd.Id, aggregate => aggregate.SignIn(cmd));
         }
     }
 }

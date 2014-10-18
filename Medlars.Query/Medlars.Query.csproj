@@ -85,6 +85,10 @@
       <Project>{17dbbe23-c204-47de-a53d-58ef065e402f}</Project>
       <Name>Medlars.Command</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Medlars.Core\Medlars.Core.csproj">
+      <Project>{4F55BC30-BAF4-4102-8002-E25821AC5138}</Project>
+      <Name>Medlars.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201410140610135_20141013Account.resx">

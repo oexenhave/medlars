@@ -24,7 +24,7 @@ namespace Medlars.Tests
             var scope = startup.GetContainer().BeginLifetimeScope();
             var bus = scope.Resolve<IBus>();
 
-            bus.Dispatch(new SignupCommand { Email = "soeren@oexenhave.dk", Id = new SignupId(Guid.NewGuid()), Timestamp = DateTime.Now });
+            bus.Dispatch(new SignupCommand { Email = "soeren@oexenhave.dk", Id = new AccountId(Guid.NewGuid()), Timestamp = DateTime.Now });
             Assert.True(true);
         }
     }
