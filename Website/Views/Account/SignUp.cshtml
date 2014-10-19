@@ -1,32 +1,30 @@
 ﻿@{
-    ViewBag.Title = "Authenticate";
+    ViewBag.Title = "Sign up";
     Layout = "~/Views/Shared/_BoxLayout.cshtml";
 }
 
 <div class="login-panel panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title">Please authenticate</h3>
+        <h3 class="panel-title">Sign up</h3>
     </div>
     <div class="panel-body">
-        @using (Html.BeginForm("Authenticate", "Account", FormMethod.Post, new { role = "form" }))
+        @using (Html.BeginForm("SignUp", "Account", FormMethod.Post, new { role = "form" }))
         {
             <fieldset>
                 <div class="form-group">
                     <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
                 </div>
-                <div class="form-group">
-                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
-                </div>
                 <div class="checkbox">
                     <label>
-                        <input name="remember" type="checkbox" value="Remember Me">Remember Me
+                        <input name="terms" type="checkbox" value="Accept terms of service">Accept terms of service
                     </label>
                 </div>
                 <!-- Change this to a button or input when using this as a form -->
-                <input type="submit" class="btn btn-lg btn-success btn-block" value="Login">
+                <input type="submit" class="btn btn-lg btn-success btn-block" value="Sign up">
             </fieldset>
+            @Html.ValidationSummary()
             <p></p>
-            <p>@Html.ActionLink("Don't have an account? Click here", "SignUp", "Account")</p>
+            <p>@Html.ActionLink("Already have an account? Click here", "Authenticate", "Account")</p>
         }
     </div>
 </div>

@@ -262,6 +262,10 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Account\Authenticate.cshtml" />
     <Content Include="Views\Account\Authenticated.cshtml" />
+    <Content Include="Views\Account\SignUp.cshtml" />
+    <Content Include="Views\Shared\_BoxLayout.cshtml" />
+    <Content Include="Views\Account\SignedOut.cshtml" />
+    <Content Include="Views\Account\SignedUp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -275,6 +279,10 @@
     <ProjectReference Include="..\Medlars.Command\Medlars.Command.csproj">
       <Project>{17DBBE23-C204-47DE-A53D-58EF065E402F}</Project>
       <Name>Medlars.Command</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Medlars.Core\Medlars.Core.csproj">
+      <Project>{4F55BC30-BAF4-4102-8002-E25821AC5138}</Project>
+      <Name>Medlars.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Medlars.Query\Medlars.Query.csproj">
       <Project>{1CA169D9-1368-401A-ABC4-9DEB8DB2507E}</Project>

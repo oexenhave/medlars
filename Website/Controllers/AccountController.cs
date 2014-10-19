@@ -7,6 +7,7 @@
     using System.Web.Mvc;
 
     using Medlars.Command.Account;
+    using Medlars.Core;
     using Medlars.Query.Managers;
 
     using Microsoft.AspNet.Identity;
@@ -55,9 +56,30 @@
         }
 
         [HttpPost]
-        public ActionResult Signup(string email)
+        public ActionResult Signup(string email, bool? terms)
         {
-            return this.View();
+            if (email.IsNullOrInvalidEmail())
+            {
+                ModelState.AddModelError("email", "Email invalid");
+                return this.View();
+            }
+
+            if (accountManager.IsEmailInUse(email))
+            {
+                ModelState.AddModelError("email", "Email already in use");
+                return this.View();
+            }
+
+            bus.Dispatch(new SignupCommand { Id = new AccountId(Guid.NewGuid()), Email = email, Timestamp = DateTime.Now });
+            return this.View("SignedUp");
+        }
+
+        public ActionResult SignOut()
+        {
+            var ctx = Request.GetOwinContext();
+            var authenticationManager = ctx.Authentication;
+            authenticationManager.SignOut();
+            return this.View("SignedOut");
         }
     }
 }

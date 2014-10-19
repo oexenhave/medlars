@@ -31,5 +31,10 @@ namespace Medlars.Query.Managers
 
             return null;
         }
+
+        public bool IsEmailInUse(string email)
+        {
+            return context.Accounts.Any(a => a.Email.ToLower() == email.ToLower());
+        }
     }
 }
