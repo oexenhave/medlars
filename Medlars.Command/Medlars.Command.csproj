@@ -52,16 +52,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account\SignInFailedEvent.cs" />
     <Compile Include="Account\SignInCommand.cs" />
-    <Compile Include="Account\SignInExecutedEvent.cs" />
+    <Compile Include="Account\SignInSucceededEvent.cs" />
     <Compile Include="Extensions\CommandExtensions.cs" />
     <Compile Include="MedlarsCommandInjection.cs" />
     <Compile Include="MedlarsProjectionFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MedlarServiceFactory.cs" />
     <Compile Include="Account\AccountAggregate.cs" />
-    <Compile Include="Account\SignupCommand.cs" />
-    <Compile Include="Account\SignupExecutedEvent.cs" />
+    <Compile Include="Account\SignUpCommand.cs" />
+    <Compile Include="Account\SignUpSucceededEvent.cs" />
     <Compile Include="Account\AccountService.cs" />
     <Compile Include="Account\AccountState.cs" />
   </ItemGroup>

@@ -1,0 +1,9 @@
+﻿@model ModelStateDictionary
+
+@if(!Model.IsValid)
+{
+    <br/>
+    <div class="alert alert-danger">
+        @string.Join(", ", Model.SelectMany(keyValuePair => keyValuePair.Value.Errors).Select(k => k.ErrorMessage))
+    </div>
+}

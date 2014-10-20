@@ -7,8 +7,8 @@
     /// <summary>
     /// Fetches from storage, saves and forwards to bus.
     /// </summary>
-    public class AccountService : AggregateService<AccountAggregate>, 
-        IAcceptCommand<SignupCommand>,
+    public class AccountService : AggregateService<AccountAggregate>,
+        IAcceptCommand<SignUpCommand>,
         IAcceptCommand<SignInCommand>
     {
         public AccountService(IEventStore eventStorage)
@@ -20,7 +20,7 @@
         /// Validates the incoming command. 2. step. Allowed to say no.
         /// </summary>
         /// <param name="cmd">The signup command</param>
-        public void When(SignupCommand cmd)
+        public void When(SignUpCommand cmd)
         {
             cmd.ValidateTimestamp();
             cmd.ValidateId(c => c.Id);

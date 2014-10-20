@@ -8,8 +8,9 @@
     /// State of the account aggregate.
     /// </summary>
     public class AccountState : AggregateState,
-        IStateEvent<SignupExecutedEvent>,
-        IStateEvent<SignInExecutedEvent>
+        IStateEvent<SignUpSucceededEvent>,
+        IStateEvent<SignInSucceededEvent>,
+        IStateEvent<SignInFailedEvent>
     {
         public AccountId Id { get; set; }
 
@@ -19,17 +20,25 @@
 
         public string Secret { get; private set; }
 
-        public void When(SignupExecutedEvent e)
+        public DateTime LastLogin { get; private set; }
+
+        public void When(SignUpSucceededEvent e)
         {
             this.Id = (AccountId)e.AggregateId;
             this.Email = e.Email;
             this.IsCreated = true;
             this.Secret = e.Secret;
+            this.LastLogin = e.Timestamp;
         }
 
-        public void When(SignInExecutedEvent e)
+        public void When(SignInSucceededEvent e)
         {
-            // Noop
+            this.LastLogin = e.Timestamp;
+        }
+
+        public void When(SignInFailedEvent e)
+        {
+            // throw new NotImplementedException();
         }
     }
 }

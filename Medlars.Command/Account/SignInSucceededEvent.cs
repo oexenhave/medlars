@@ -5,7 +5,7 @@
     using TastyDomainDriven;
 
     [Serializable]
-    public class SignInExecutedEvent : IEvent
+    public class SignInSucceededEvent : IEvent
     {
         public IIdentity AggregateId { get; set; }
 

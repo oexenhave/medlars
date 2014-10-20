@@ -2,6 +2,7 @@ namespace Medlars.Query.Consumers.Database
 {
     using System;
     using System.Data.Entity.Validation;
+    using System.Linq;
 
     using log4net;
 
@@ -10,7 +11,8 @@ namespace Medlars.Query.Consumers.Database
 
     using TastyDomainDriven;
 
-    public class AccountView : IConsumes<SignupExecutedEvent>
+    public class AccountView : IConsumes<SignUpSucceededEvent>,
+        IConsumes<SignInSucceededEvent>
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(AccountView));
 
@@ -21,7 +23,7 @@ namespace Medlars.Query.Consumers.Database
             this.context = context;
         }
 
-        public void Consume(SignupExecutedEvent e)
+        public void Consume(SignUpSucceededEvent e)
         {
             context.Accounts.Add(new Account
                                  {
@@ -30,7 +32,8 @@ namespace Medlars.Query.Consumers.Database
                                      AccountId = Guid.Parse(e.AggregateId.ToString()),
                                      AllowedIps = e.AllowedIps,
                                      PasswordHash = e.PasswordHash,
-                                     PasswordSalt = e.PasswordSalt
+                                     PasswordSalt = e.PasswordSalt,
+                                     LastLogin = new DateTime(1970, 1, 1)
                                  });
 
             try
@@ -49,6 +52,17 @@ namespace Medlars.Query.Consumers.Database
                         }
                     }
                 }
+            }
+        }
+
+        public void Consume(SignInSucceededEvent e)
+        {
+            var accountId = Guid.Parse(e.AggregateId.ToString());
+            var account = context.Accounts.FirstOrDefault(a => a.AccountId == accountId);
+            if (account != null)
+            {
+                account.LastLogin = e.Timestamp;
+                context.SaveChanges();
             }
         }
     }

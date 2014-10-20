@@ -31,7 +31,7 @@
         /// Apply business logic. Step 3. 
         /// </summary>
         /// <param name="cmd">The signup command</param>
-        public void Signup(SignupCommand cmd)
+        public void Signup(SignUpCommand cmd)
         {
             this.GuardCreated();
 
@@ -41,7 +41,7 @@
             var passwordHash = Encryption.GeneratePasswordHash(passwordSalt, temporaryPassword);
             const string AllowedIps = "127.0.0.1 ::1";
 
-            this.Apply(new SignupExecutedEvent
+            this.Apply(new SignUpSucceededEvent
                        {
                            AggregateId = cmd.Id,
                            Email = cmd.Email,
@@ -49,16 +49,29 @@
                            PasswordSalt = passwordSalt,
                            PasswordHash = passwordHash,
                            TemporaryPassword = temporaryPassword,
-                           AllowedIps = AllowedIps
+                           AllowedIps = AllowedIps,
+                           Timestamp = cmd.Timestamp
                        });
         }
 
         public void SignIn(SignInCommand cmd)
         {
-            this.Apply(new SignInExecutedEvent
-                       {
-                           AggregateId = cmd.Id
-                       });
+            if (cmd.Success)
+            {
+                this.Apply(new SignInSucceededEvent
+                {
+                    AggregateId = cmd.Id,
+                    Timestamp = cmd.Timestamp
+                });
+            }
+            else
+            {
+                this.Apply(new SignInFailedEvent
+                {
+                    AggregateId = cmd.Id,
+                    Timestamp = cmd.Timestamp
+                });
+            }
         }
 
         private void GuardCreated()

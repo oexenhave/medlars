@@ -26,6 +26,11 @@
             this.accountManager = accountManager;
         }
 
+        public ActionResult Index()
+        {
+            return this.RedirectToAction("Authenticate");
+        }
+
         public ActionResult Authenticate()
         {
             return this.View();
@@ -34,7 +39,9 @@
         [HttpPost]
         public ActionResult Authenticate(string email, string password)
         {
-            var account = accountManager.Authenticate(email, password);
+            ViewBag.Email = email;
+
+            var account = accountManager.Authenticate(email, password, Request.UserHostAddress);
             if (account != null)
             {
                 var claims = new List<Claim> { new Claim(ClaimTypes.Email, email) };
@@ -43,10 +50,10 @@
                 var authenticationManager = ctx.Authentication;
                 authenticationManager.SignIn(id);
 
-                bus.Dispatch(new SignInCommand { Id = new AccountId(account.AccountId), Timestamp = DateTime.Now, Ip = Request.UserHostAddress });
                 return this.View("Authenticated");
             }
 
+            ModelState.AddModelError("email", "Unable to verify email and password combination. Please try again.");
             return this.View();
         }
 
@@ -58,6 +65,8 @@
         [HttpPost]
         public ActionResult Signup(string email, bool? terms)
         {
+            ViewBag.Email = email;
+
             if (email.IsNullOrInvalidEmail())
             {
                 ModelState.AddModelError("email", "Email invalid");
@@ -70,7 +79,7 @@
                 return this.View();
             }
 
-            bus.Dispatch(new SignupCommand { Id = new AccountId(Guid.NewGuid()), Email = email, Timestamp = DateTime.Now });
+            bus.Dispatch(new SignUpCommand { Id = new AccountId(Guid.NewGuid()), Email = email, Timestamp = DateTime.Now });
             return this.View("SignedUp");
         }
 

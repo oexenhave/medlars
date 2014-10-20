@@ -7,7 +7,7 @@
     /// <summary>
     /// Signup command. Input parameters. 1. step.
     /// </summary>
-    public class SignupCommand : ICommand
+    public class SignUpCommand : ICommand
     {
         public AccountId Id { get; set; }
 

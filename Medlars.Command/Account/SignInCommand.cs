@@ -11,5 +11,7 @@ namespace Medlars.Command.Account
         public DateTime Timestamp { get; set; }
 
         public string Ip { get; set; }
+
+        public bool Success { get; set; }
     }
 }

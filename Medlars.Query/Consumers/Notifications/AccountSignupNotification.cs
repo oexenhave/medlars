@@ -6,11 +6,11 @@
 
     using TastyDomainDriven;
 
-    public class AccountSignupNotification : IConsumes<SignupExecutedEvent>
+    public class AccountSignupNotification : IConsumes<SignUpSucceededEvent>
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(AccountSignupNotification));
 
-        public void Consume(SignupExecutedEvent e)
+        public void Consume(SignUpSucceededEvent e)
         {
             if (Logger.IsDebugEnabled)
             {

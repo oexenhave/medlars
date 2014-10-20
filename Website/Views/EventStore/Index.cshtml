@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "EventStore administration";
+    Layout = "~/Views/Shared/_BoxLayout.cshtml";
+}
+
+<div class="login-panel panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">EventStore administrator</h3>
+    </div>
+    <div class="panel-body">
+        @Html.ActionLink("Reset Database", "ResetDatabase")<br/>
+        @Html.ActionLink("Replay Events", "ReplayEvents")<br/>
+        @Html.ActionLink("Truncate Event Storage", "TruncateEventStorage")<br />
+        <br/>
+        @Html.ActionLink("Sign in", "Authenticate", "Account")
+    </div>
+</div>
+
+

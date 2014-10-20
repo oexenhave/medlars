@@ -8,7 +8,7 @@
     /// Action outcome
     /// </summary>
     [Serializable]
-    public class SignupExecutedEvent : IEvent
+    public class SignUpSucceededEvent : IEvent
     {
         public IIdentity AggregateId { get; set; }
 

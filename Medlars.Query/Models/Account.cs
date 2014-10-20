@@ -23,5 +23,7 @@ namespace Medlars.Query.Models
 
         [Required, StringLength(256)]
         public string AllowedIps { get; set; }
+
+        public DateTime LastLogin { get; set; }
     }
 }

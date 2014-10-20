@@ -201,6 +201,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\EventStoreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DependencyInjectionStartup.cs" />
@@ -266,6 +267,8 @@
     <Content Include="Views\Shared\_BoxLayout.cshtml" />
     <Content Include="Views\Account\SignedOut.cshtml" />
     <Content Include="Views\Account\SignedUp.cshtml" />
+    <Content Include="Views\Shared\ValidationSummary.cshtml" />
+    <Content Include="Views\EventStore\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
