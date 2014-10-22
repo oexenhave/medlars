@@ -2,6 +2,8 @@
 {
     using System;
 
+    using Medlars.Command.Account;
+
     using TastyDomainDriven;
 
     public class AddStringEntryCommand : ICommand
@@ -16,7 +18,7 @@
 
         public string Message { get; set; }
 
-        public Guid AccountId { get; set; }
+        public AccountId AccountId { get; set; }
 
         public string UserHostAddress { get; set; }
 

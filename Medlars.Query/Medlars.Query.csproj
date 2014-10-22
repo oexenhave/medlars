@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Consumers\Database\AccountView.cs" />
+    <Compile Include="Consumers\Database\EntryView.cs" />
     <Compile Include="Consumers\Notifications\AccountSignupNotification.cs" />
     <Compile Include="Managers\AccountManager.cs" />
     <Compile Include="MedlarsDataConfiguration.cs" />

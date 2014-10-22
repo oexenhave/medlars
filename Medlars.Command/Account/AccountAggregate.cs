@@ -2,6 +2,7 @@
 {
     using System;
 
+    using Medlars.Command.Entry;
     using Medlars.Core;
 
     using TastyDomainDriven;
@@ -72,6 +73,22 @@
                     Timestamp = cmd.Timestamp
                 });
             }
+        }
+
+        public EntryAggregate AddString(AddStringEntryCommand cmd)
+        {
+            if (!State.AllowedIps.Contains(cmd.UserHostAddress))
+            {
+                string concat = string.Concat(cmd.AccountId, cmd.Timestamp, State.Secret);
+                if (Encryption.GenerateMd5Hash(concat) != cmd.Hash)
+                {
+                    throw new ArgumentException("The entry hash is invalid and IP (" + cmd.UserHostAddress + ") is not whitelisted.");
+                }
+            }
+
+            var entry = new EntryAggregate();
+            entry.AddString(cmd.Id, cmd.Message, cmd.Severity, cmd.Timestamp, cmd.Service, State.Id);
+            return entry;
         }
 
         private void GuardCreated()

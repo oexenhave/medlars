@@ -57,6 +57,8 @@
     <Compile Include="Account\SignInSucceededEvent.cs" />
     <Compile Include="Entry\AddStringEntryCommand.cs" />
     <Compile Include="Entry\EntryAggregate.cs" />
+    <Compile Include="Entry\EntryService.cs" />
+    <Compile Include="Entry\EntrySeverity.cs" />
     <Compile Include="Entry\EntryState.cs" />
     <Compile Include="Entry\StringAddedEvent.cs" />
     <Compile Include="Extensions\CommandExtensions.cs" />

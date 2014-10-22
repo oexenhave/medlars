@@ -2,8 +2,11 @@
 
 namespace Medlars.Command.Entry
 {
+    using Medlars.Command.Account;
+
     using TastyDomainDriven;
 
+    [Serializable]
     public class StringAddedEvent : IEvent
     {
         public IIdentity AggregateId { get; set; }
@@ -13,6 +16,10 @@ namespace Medlars.Command.Entry
         public DateTime Timestamp { get; set; }
 
         public long Version { get; set; }
+
+        public AccountId AccountId { get; set; }
+
+        public string Service { get; set; }
 
         public string Message { get; set; }
 

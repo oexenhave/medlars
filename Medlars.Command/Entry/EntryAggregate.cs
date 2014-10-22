@@ -2,6 +2,8 @@
 {
     using System;
 
+    using Medlars.Command.Account;
+
     using TastyDomainDriven;
 
     [Serializable]
@@ -22,22 +24,23 @@
 
     public class EntryAggregate : AggregateRoot<EntryState>
     {
-        public void AddString(AddStringEntryCommand cmd)
+        public void AddString(EntryId id, string message, EntrySeverity severity, DateTime timestamp, string service, AccountId accountId)
         {
             this.GuardCreateOnly();
-
             this.Apply(new StringAddedEvent
                        {
-                           AggregateId = cmd.Id,
-                           Message = cmd.Message,
-                           Severity = cmd.Severity,
-                           Timestamp = cmd.Timestamp
+                           AggregateId = id,
+                           Message = message,
+                           Severity = severity,
+                           Timestamp = timestamp,
+                           Service = service,
+                           AccountId = accountId
                        });
         }
 
         private void GuardCreateOnly()
         {
-            if (!this.State.IsCreated)
+            if (this.State.IsCreated)
             {
                 throw new Exception("Entry cannot be modified");
             }

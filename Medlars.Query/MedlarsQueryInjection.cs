@@ -14,6 +14,7 @@
         {
             builder.Register(x => new MedlarsDataContext(ConfigurationManager.ConnectionStrings["events"].ConnectionString)).InstancePerLifetimeScope();
             builder.RegisterType<AccountView>().AsImplementedInterfaces();
+            builder.RegisterType<EntryView>().AsImplementedInterfaces();
 
             builder.RegisterType<AccountSignupNotification>().AsImplementedInterfaces();
 

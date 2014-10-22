@@ -22,6 +22,8 @@
 
         public DateTime LastLogin { get; private set; }
 
+        public string AllowedIps { get; private set; }
+
         public void When(SignUpSucceededEvent e)
         {
             this.Id = (AccountId)e.AggregateId;
@@ -29,6 +31,7 @@
             this.IsCreated = true;
             this.Secret = e.Secret;
             this.LastLogin = e.Timestamp;
+            this.AllowedIps = e.AllowedIps;
         }
 
         public void When(SignInSucceededEvent e)
