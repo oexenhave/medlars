@@ -57,6 +57,11 @@
 
         public void SignIn(SignInCommand cmd)
         {
+            if (!this.State.IsCreated)
+            {
+                throw new AccountNotFoundException("Account not found");
+            }
+
             if (cmd.Success)
             {
                 this.Apply(new SignInSucceededEvent
@@ -77,12 +82,17 @@
 
         public EntryAggregate AddString(AddStringEntryCommand cmd)
         {
+            if (!State.IsCreated)
+            {
+                throw new AccoutMissingException("Account \"" + cmd.AccountId + "\" is not recognized");
+            }
+
             if (!State.AllowedIps.Contains(cmd.UserHostAddress))
             {
                 string concat = string.Concat(cmd.AccountId, cmd.Timestamp, State.Secret);
                 if (Encryption.GenerateMd5Hash(concat) != cmd.Hash)
                 {
-                    throw new ArgumentException("The entry hash is invalid and IP (" + cmd.UserHostAddress + ") is not whitelisted.");
+                    throw new HashInvalidException("The entry hash is invalid and IP (" + cmd.UserHostAddress + ") is not whitelisted.");
                 }
             }
 

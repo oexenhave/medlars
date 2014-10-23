@@ -24,7 +24,7 @@
         {
             cmd.ValidateTimestamp();
             cmd.ValidateId(c => c.Id);
-            cmd.ValidateString(c => c.Email);
+            cmd.ValidateEmail(c => c.Email);
 
             this.Update(cmd.Id, aggregate => aggregate.Signup(cmd));
         }

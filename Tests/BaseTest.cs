@@ -37,6 +37,19 @@ namespace Medlars.Tests
             }
         }
 
+        protected void Given(ILifetimeScope scope, IEnumerable<ICommand> commands, Action<IBus> action)
+        {
+            using (var testScope = scope.BeginLifetimeScope())
+            {
+                foreach (var command in commands)
+                {
+                    testScope.Resolve<IBus>().Dispatch(command);
+                }
+
+                action(testScope.Resolve<IBus>());
+            }
+        }
+
         protected IContainer SetupContainer()
         {
             var builder = new ContainerBuilder();

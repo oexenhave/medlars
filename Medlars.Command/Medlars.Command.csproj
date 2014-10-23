@@ -52,14 +52,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account\AccountExistsException.cs" />
+    <Compile Include="Account\AccountNotFoundException.cs" />
+    <Compile Include="Account\EmailInvalidException.cs" />
     <Compile Include="Account\SignInFailedEvent.cs" />
     <Compile Include="Account\SignInCommand.cs" />
     <Compile Include="Account\SignInSucceededEvent.cs" />
+    <Compile Include="Entry\AccoutMissingException.cs" />
     <Compile Include="Entry\AddStringEntryCommand.cs" />
     <Compile Include="Entry\EntryAggregate.cs" />
     <Compile Include="Entry\EntryService.cs" />
     <Compile Include="Entry\EntrySeverity.cs" />
     <Compile Include="Entry\EntryState.cs" />
+    <Compile Include="Entry\HashInvalidException.cs" />
     <Compile Include="Entry\StringAddedEvent.cs" />
     <Compile Include="Extensions\CommandExtensions.cs" />
     <Compile Include="MedlarsCommandInjection.cs" />
