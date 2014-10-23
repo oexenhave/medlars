@@ -21,9 +21,12 @@
 
         public DbSet<Account> Accounts { get; set; }
 
+        public DbSet<Entry> Entries { get; set; }
+
         public void ResetDatabase()
         {
             this.Database.ExecuteSqlCommand("TRUNCATE TABLE Accounts");
+            this.Database.ExecuteSqlCommand("TRUNCATE TABLE Entries");
 
             if (Logger.IsWarnEnabled)
             {

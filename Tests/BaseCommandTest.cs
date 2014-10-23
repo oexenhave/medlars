@@ -1,27 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Medlars.Tests
+﻿namespace Medlars.Tests
 {
+    using System;
+    using System.Collections.Generic;
+
     using Autofac;
-    using Autofac.Core.Lifetime;
 
     using Medlars.Command;
-    using Medlars.Command.Account;
-    using Medlars.Command.Entry;
 
     using TastyDomainDriven;
     using TastyDomainDriven.File;
 
-    public class BaseTest : IDisposable
+    public abstract class BaseCommandTest : IDisposable
     {
         private IContainer container;
 
-        public BaseTest()
+        public abstract void RegisterTestTypes(ContainerBuilder builder);
+
+        public void Dispose()
         {
+            container.Dispose();
         }
 
         protected void Given(ILifetimeScope scope, IEnumerable<ICommand> commands, Action<IEventStore> action)
@@ -56,17 +53,13 @@ namespace Medlars.Tests
             builder.RegisterType<MedlarsServiceFactory>().As<ServiceFactory>();
             builder.RegisterType<MemoryAppendStore>().AsImplementedInterfaces().SingleInstance();
             builder.Register(x => new MedlarsProjectionFactory(new EventStore(x.Resolve<IAppendOnlyStore>()), x.Resolve<ILifetimeScope>())).AsSelf().AsImplementedInterfaces();
-            builder.RegisterType<AccountService>().AsImplementedInterfaces();
-            builder.RegisterType<EntryService>().AsImplementedInterfaces();
             builder.RegisterType<SynchronBus>().AsImplementedInterfaces();
+
+            this.RegisterTestTypes(builder);
+
             container = builder.Build();
 
             return container;
-        }
-
-        public void Dispose()
-        {
-            container.Dispose();
         }
     }
 }
