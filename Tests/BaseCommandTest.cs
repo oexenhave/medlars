@@ -8,7 +8,10 @@
     using Medlars.Command;
 
     using TastyDomainDriven;
+    using TastyDomainDriven.Bus;
+    using TastyDomainDriven.EventStore;
     using TastyDomainDriven.File;
+    using TastyDomainDriven.Memory;
 
     public abstract class BaseCommandTest : IDisposable
     {
@@ -52,7 +55,7 @@
             var builder = new ContainerBuilder();
             builder.RegisterType<MedlarsServiceFactory>().As<ServiceFactory>();
             builder.RegisterType<MemoryAppendStore>().AsImplementedInterfaces().SingleInstance();
-            builder.Register(x => new MedlarsProjectionFactory(new EventStore(x.Resolve<IAppendOnlyStore>()), x.Resolve<ILifetimeScope>())).AsSelf().AsImplementedInterfaces();
+            builder.RegisterType<IEventPublisher>().As<BaseEventPublisher>();
             builder.RegisterType<SynchronBus>().AsImplementedInterfaces();
 
             this.RegisterTestTypes(builder);

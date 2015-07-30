@@ -82,14 +82,14 @@
 
         public EntryAggregate AddString(AddStringEntryCommand cmd)
         {
-            if (!State.IsCreated)
+            if (!this.State.IsCreated)
             {
                 throw new AccoutMissingException("Account \"" + cmd.AccountId + "\" is not recognized");
             }
 
-            if (!State.AllowedIps.Contains(cmd.UserHostAddress))
+            if (!this.State.AllowedIps.Contains(cmd.UserHostAddress))
             {
-                string concat = string.Concat(cmd.AccountId, cmd.Timestamp, State.Secret);
+                string concat = string.Concat(cmd.AccountId, cmd.Timestamp, this.State.Secret);
                 if (Encryption.GenerateMd5Hash(concat) != cmd.Hash)
                 {
                     throw new HashInvalidException("The entry hash is invalid and IP (" + cmd.UserHostAddress + ") is not whitelisted.");
@@ -97,7 +97,7 @@
             }
 
             var entry = new EntryAggregate();
-            entry.AddString(cmd.Id, cmd.Message, cmd.Severity, cmd.Timestamp, cmd.Service, State.Id);
+            entry.AddString(cmd.Id, cmd.Message, cmd.Severity, cmd.Timestamp, cmd.Service, this.State.Id);
             return entry;
         }
 

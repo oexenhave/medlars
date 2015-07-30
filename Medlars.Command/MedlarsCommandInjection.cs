@@ -1,13 +1,11 @@
 ﻿namespace Medlars.Command
 {
-    using System.Configuration;
-
     using Autofac;
 
-    using Medlars.Command.Account;
+    using Account;
 
     using TastyDomainDriven;
-    using TastyDomainDriven.MsSql;
+    using TastyDomainDriven.Bus;
 
     public class MedlarsCommandInjection
     {
@@ -15,7 +13,7 @@
         {
             builder.RegisterType<SynchronBus>().AsImplementedInterfaces();
             builder.RegisterType<MedlarsServiceFactory>().As<ServiceFactory>();
-            builder.Register(x => new MedlarsProjectionFactory(new EventStore(new SqlAppendOnlyStore(ConfigurationManager.ConnectionStrings["events"].ConnectionString)), x.Resolve<ILifetimeScope>())).AsSelf().AsImplementedInterfaces();
+            builder.RegisterType<BaseEventPublisher>().AsImplementedInterfaces();
 
             builder.RegisterType<AccountService>().AsImplementedInterfaces();
         }

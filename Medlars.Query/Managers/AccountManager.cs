@@ -3,11 +3,10 @@
 namespace Medlars.Query.Managers
 {
     using System;
-    using System.Security;
 
-    using Medlars.Command.Account;
-    using Medlars.Core;
-    using Medlars.Query.Models;
+    using Command.Account;
+    using Core;
+    using Models;
 
     using TastyDomainDriven;
 
@@ -25,16 +24,16 @@ namespace Medlars.Query.Managers
 
         public Account Authenticate(string email, string password, string userHostAddress)
         {
-            var account = context.Accounts.FirstOrDefault(a => a.Email == email);
+            var account = this.context.Accounts.FirstOrDefault(a => a.Email == email);
             if (account != null)
             {
                 if (Encryption.GeneratePasswordHash(account.PasswordSalt, password) == account.PasswordHash)
                 {
-                    bus.Dispatch(new SignInCommand { Id = new AccountId(account.AccountId), Timestamp = DateTime.Now, Ip = userHostAddress, Success = true });
+                    this.bus.Dispatch(new SignInCommand { Id = new AccountId(account.AccountId), Timestamp = DateTime.Now, Ip = userHostAddress, Success = true });
                     return account;
                 }
 
-                bus.Dispatch(new SignInCommand { Id = new AccountId(account.AccountId), Timestamp = DateTime.Now, Ip = userHostAddress, Success = false });
+                this.bus.Dispatch(new SignInCommand { Id = new AccountId(account.AccountId), Timestamp = DateTime.Now, Ip = userHostAddress, Success = false });
                 return null;
             }
 
@@ -43,7 +42,7 @@ namespace Medlars.Query.Managers
 
         public bool IsEmailInUse(string email)
         {
-            return context.Accounts.Any(a => a.Email.ToLower() == email.ToLower());
+            return this.context.Accounts.Any(a => a.Email.ToLower() == email.ToLower());
         }
     }
 }

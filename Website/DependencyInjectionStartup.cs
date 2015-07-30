@@ -7,9 +7,9 @@ namespace Medlars.Website
     using Autofac.Integration.Mvc;
     using Autofac.Integration.WebApi;
 
-    using Medlars.Command;
-    using Medlars.Query;
-    using Medlars.Website.Controllers;
+    using Command;
+    using Query;
+    using Controllers;
 
     public class DependencyInjectionStartup
     {

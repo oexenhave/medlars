@@ -44,12 +44,12 @@ namespace Medlars.Website.Controllers
 
         public ActionResult ReplayEvents()
         {
-            var projector = scope.Resolve<MedlarsProjectionFactory>();
-            var events = scope.Resolve<IEventStore>().ReplayAll().Events;
-            foreach (var e in events)
-            {
-                projector.ConsumeByReadSide((object)e);
-            }
+            //var projector = scope.Resolve<MedlarsProjectionFactory>();
+            //var events = scope.Resolve<IEventStore>().ReplayAll().Events;
+            //foreach (var e in events)
+            //{
+            //    projector.ConsumeByReadSide((object)e);
+            //}
 
             return this.RedirectToAction("Index");
         }

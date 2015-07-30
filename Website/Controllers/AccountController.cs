@@ -39,21 +39,21 @@
         [HttpPost]
         public ActionResult Authenticate(string email, string password)
         {
-            ViewBag.Email = email;
+            this.ViewBag.Email = email;
 
-            var account = accountManager.Authenticate(email, password, Request.UserHostAddress);
+            var account = this.accountManager.Authenticate(email, password, this.Request.UserHostAddress);
             if (account != null)
             {
                 var claims = new List<Claim> { new Claim(ClaimTypes.Email, email) };
                 var id = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
-                var ctx = Request.GetOwinContext();
+                var ctx = this.Request.GetOwinContext();
                 var authenticationManager = ctx.Authentication;
                 authenticationManager.SignIn(id);
 
                 return this.View("Authenticated");
             }
 
-            ModelState.AddModelError("email", "Unable to verify email and password combination. Please try again.");
+            this.ModelState.AddModelError("email", "Unable to verify email and password combination. Please try again.");
             return this.View();
         }
 
@@ -65,27 +65,27 @@
         [HttpPost]
         public ActionResult Signup(string email, bool? terms)
         {
-            ViewBag.Email = email;
+            this.ViewBag.Email = email;
 
             if (email.IsNullOrInvalidEmail())
             {
-                ModelState.AddModelError("email", "Email invalid");
+                this.ModelState.AddModelError("email", "Email invalid");
                 return this.View();
             }
 
-            if (accountManager.IsEmailInUse(email))
+            if (this.accountManager.IsEmailInUse(email))
             {
-                ModelState.AddModelError("email", "Email already in use");
+                this.ModelState.AddModelError("email", "Email already in use");
                 return this.View();
             }
 
-            bus.Dispatch(new SignUpCommand { Id = new AccountId(Guid.NewGuid()), Email = email, Timestamp = DateTime.Now });
+            this.bus.Dispatch(new SignUpCommand { Id = new AccountId(Guid.NewGuid()), Email = email, Timestamp = DateTime.Now });
             return this.View("SignedUp");
         }
 
         public ActionResult SignOut()
         {
-            var ctx = Request.GetOwinContext();
+            var ctx = this.Request.GetOwinContext();
             var authenticationManager = ctx.Authentication;
             authenticationManager.SignOut();
             return this.View("SignedOut");

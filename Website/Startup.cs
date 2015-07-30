@@ -11,7 +11,7 @@ namespace Medlars.Website
     {
         public void Configuration(IAppBuilder app)
         {
-            ConfigureAuth(app);
+            this.ConfigureAuth(app);
             var dependency = new DependencyInjectionStartup();
         }
     }

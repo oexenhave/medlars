@@ -46,9 +46,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TastyDomainDriven, Version=0.9.71.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\TastyDomainDriven.0.9.71-alpha\lib\net451\TastyDomainDriven.dll</HintPath>
+    <Reference Include="TastyDomainDriven, Version=0.9.119.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TastyDomainDriven.0.9.119-alpha\lib\net451\TastyDomainDriven.dll</HintPath>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -68,7 +68,6 @@
     <Compile Include="Entry\StringAddedEvent.cs" />
     <Compile Include="Extensions\CommandExtensions.cs" />
     <Compile Include="MedlarsCommandInjection.cs" />
-    <Compile Include="MedlarsProjectionFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MedlarServiceFactory.cs" />
     <Compile Include="Account\AccountAggregate.cs" />
