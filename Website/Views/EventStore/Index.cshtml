@@ -13,8 +13,24 @@
         @Html.ActionLink("Replay Events", "ReplayEvents")<br/>
         @Html.ActionLink("Truncate Event Storage", "TruncateEventStorage")<br />
         <br/>
-        @Html.ActionLink("Sign in", "Authenticate", "Account")
+        @Html.ActionLink("Sign in", "Authenticate", "Account")<br />
+        <br/>
+        <table>
+            <tr>
+                <td></td>
+            </tr>
+        </table>
     </div>
 </div>
 
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $.getJSON('@Url.Action("List")', function(data) {
 
+            });
+        });
+    </script>
+
+}

@@ -7,7 +7,7 @@
     {
         public MedlarsDataContext Create()
         {
-            return new MedlarsDataContext(ConfigurationManager.ConnectionStrings["events"].ConnectionString);
+            return new MedlarsDataContext("Server=localhost;Database=Medlars;User Id=sa;Password=timelog");
         }
     }
 }

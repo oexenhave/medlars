@@ -43,16 +43,17 @@
             const string AllowedIps = "127.0.0.1 ::1";
 
             this.Apply(new SignUpSucceededEvent
-                       {
-                           AggregateId = cmd.Id,
-                           Email = cmd.Email,
-                           Secret = secret,
-                           PasswordSalt = passwordSalt,
-                           PasswordHash = passwordHash,
-                           TemporaryPassword = temporaryPassword,
-                           AllowedIps = AllowedIps,
-                           Timestamp = cmd.Timestamp
-                       });
+            {
+                EventId = Guid.NewGuid(),
+                AggregateId = cmd.Id,
+                Email = cmd.Email,
+                Secret = secret,
+                PasswordSalt = passwordSalt,
+                PasswordHash = passwordHash,
+                TemporaryPassword = temporaryPassword,
+                AllowedIps = AllowedIps,
+                Timestamp = cmd.Timestamp
+            });
         }
 
         public void SignIn(SignInCommand cmd)
@@ -66,6 +67,7 @@
             {
                 this.Apply(new SignInSucceededEvent
                 {
+                    EventId = Guid.NewGuid(),
                     AggregateId = cmd.Id,
                     Timestamp = cmd.Timestamp
                 });
@@ -74,6 +76,7 @@
             {
                 this.Apply(new SignInFailedEvent
                 {
+                    EventId = Guid.NewGuid(),
                     AggregateId = cmd.Id,
                     Timestamp = cmd.Timestamp
                 });
@@ -92,7 +95,7 @@
                 string concat = string.Concat(cmd.AccountId, cmd.Timestamp, this.State.Secret);
                 if (Encryption.GenerateMd5Hash(concat) != cmd.Hash)
                 {
-                    throw new HashInvalidException("The entry hash is invalid and IP (" + cmd.UserHostAddress + ") is not whitelisted.");
+                    throw new HashInvalidException("The entry hash is invalid and IP (" + cmd.UserHostAddress + ") is not white listed.");
                 }
             }
 

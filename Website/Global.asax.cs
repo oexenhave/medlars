@@ -9,6 +9,8 @@
     using System.Web.Routing;
 
     using log4net;
+    using TastyDomainDriven.MsSql;
+    using System.Configuration;
 
     public class WebApiApplication : HttpApplication
     {
@@ -21,6 +23,8 @@
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            new SqlAppendOnlyStore(ConfigurationManager.ConnectionStrings["events"].ConnectionString).Initialize();
 
             log4net.Config.XmlConfigurator.ConfigureAndWatch(new FileInfo(Server.MapPath("~/log4net.config")));
             if (Logger.IsInfoEnabled)

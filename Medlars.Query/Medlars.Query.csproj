@@ -55,8 +55,8 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TastyDomainDriven, Version=0.9.119.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TastyDomainDriven.0.9.119-alpha\lib\net451\TastyDomainDriven.dll</HintPath>
+    <Reference Include="TastyDomainDriven, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TastyDomainDriven.1.3.0\lib\net451\TastyDomainDriven.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -68,6 +68,7 @@
     <Compile Include="MedlarsDataConfiguration.cs" />
     <Compile Include="MedlarsDataContext.cs" />
     <Compile Include="MedlarsDbContextFactory.cs" />
+    <Compile Include="MedlarsPublisher.cs" />
     <Compile Include="MedlarsQueryInjection.cs" />
     <Compile Include="Migrations\201410140610135_20141013Account.cs" />
     <Compile Include="Migrations\201410140610135_20141013Account.Designer.cs">

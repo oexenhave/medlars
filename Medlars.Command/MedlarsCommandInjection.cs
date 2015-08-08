@@ -6,6 +6,10 @@
 
     using TastyDomainDriven;
     using TastyDomainDriven.Bus;
+    using TastyDomainDriven.EventStore;
+    using TastyDomainDriven.Memory;
+    using TastyDomainDriven.MsSql;
+    using System.Configuration;
 
     public class MedlarsCommandInjection
     {

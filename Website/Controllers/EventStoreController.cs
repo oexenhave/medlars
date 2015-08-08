@@ -1,4 +1,8 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using Medlars.Query.Consumers.Database;
+using TastyDomainDriven.Projections;
 
 namespace Medlars.Website.Controllers
 {
@@ -42,14 +46,26 @@ namespace Medlars.Website.Controllers
             return this.RedirectToAction("Index");
         }
 
+        public ActionResult List()
+        {
+            var query = eventStorage.ReplayAll().Events.AsQueryable();
+
+            query = query.Reverse();
+            query = query.Take(50);
+
+            var data = query.Select(e => new { EventType = e.GetType().ToString(), Id = e.AggregateId.ToString(), Date = e.Timestamp.ToString("o"), Event = e }).ToArray();
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult ReplayEvents()
         {
-            //var projector = scope.Resolve<MedlarsProjectionFactory>();
-            //var events = scope.Resolve<IEventStore>().ReplayAll().Events;
-            //foreach (var e in events)
-            //{
-            //    projector.ConsumeByReadSide((object)e);
-            //}
+            var _readRegister = new EventRegister(typeof(IConsumes<>));
+            _readRegister.Subscribe(new AccountView(context));
+            foreach (var item in eventStorage.ReplayAll().Events)
+            {
+                _readRegister.Consume(item);
+            }
 
             return this.RedirectToAction("Index");
         }
